@@ -1,0 +1,47 @@
+<script>
+
+function computerSelection() {
+    let cChoice = Math.floor(Math.random() * 3) + 1;
+
+    if (cChoice === 1) {
+        return "rock"
+    } else if (cChoice === 2) {
+        return "paper"
+    } else if (cChoice === 3) {
+        return "scissors"
+    } else {
+        return "error"
+    }
+};
+
+function playerSelection() {
+    return prompt("Please input either Rock, Paper or Scissors.", "Minecraft").toLowerCase()
+};
+
+function roundOfRPS(cSelection, pSelection) {
+
+    if (cSelection === "rock" && pSelection === "rock" || cSelection === "paper" && pSelection === "paper" || cSelection === "scissors" && pSelection === "scissors") {
+        return "Aww a draw :(";
+    } else if (cSelection === "rock" && pSelection === "scissors") {
+        return "Darn you lost, Rock beats Scissors.";
+    } else if (cSelection === "paper" && pSelection === "rock") {
+        return "Darn you lost, Paper beats Rock."
+    } else if (cSelection === "scissors" && pSelection === "paper") {
+        return "Darn you lost, Scissors beats Paper."
+    } else if (cSelection === "scissors" && pSelection === "rock") {
+        return "Wow you won! Rock beats Scissors."
+    } else if (cSelection === "paper" && pSelection === "scissors") {
+        return "Wow you won! Scissors beats Paper."
+    } else if (cSelection === "rock" && pSelection === "paper") {
+        return "Wow you won! Paper beats Rock."
+    } else {
+        return "You didn't choose a valid option.";
+    }
+};
+
+const pSelection = playerSelection();
+const cSelection = computerSelection();
+
+
+
+</script>
