@@ -1,88 +1,172 @@
+<head>
+
+<style>
+    body, html {
+        height: 100%;
+    }
+
+
+    .bg {
+        background-image: url("https://clips-media-assets2.twitch.tv/AT-cm%7C932232159-preview-480x272.jpg");  
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .results {
+        position: absolute;
+        color: white;
+        text-shadow: 2px;
+        
+        margin: auto;
+        width: 200px;
+        
+        padding-top: 10em;
+        
+    }
+
+    .choice {
+        margin: auto;
+        width: 90px;
+        height: 60px;
+        margin-left: 5%;
+        margin-top: 25em;
+    }
+
+    #rock {
+        margin-left: 52em;
+
+    }
+    
+</style>
+
+</head>
+
+
+<body class="bg">
+
+    <div class="results">
+        <div id="pResults"></div>
+        <div id="cResults"></div>
+    </div>
+
+    <div id="immediateResult"></div>
+
+    <div class="choiceAll">
+        <button id="rock" class="choice">Rock</button>
+        <button id="paper" class="choice">Paper</button>
+        <button id="scissors" class="choice">Scissors</button>
+    </div>
+
+    <div id="matchResults"></div>
+
+</body>
+
+
 <script>
+    const rockChoice = document.querySelector("#rock")
+    const paperChoice = document.querySelector("#paper")
+    const scissorsChoice = document.querySelector("#scissors")
+    let cSelection = computerSelection();
+    let playScore = 0
+    let compScore = 0
 
-let pSelection = playerSelection();
-let cSelection = computerSelection();
-let playScore = 0
-let compScore = 0
+    function computerSelection() {
+        let cChoice = Math.floor(Math.random() * 3) + 1;
 
-function computerSelection() {
-    let cChoice = Math.floor(Math.random() * 3) + 1;
-
-    if (cChoice === 1) {
-        return "rock"
-    } else if (cChoice === 2) {
-        return "paper"
-    } else if (cChoice === 3) {
-        return "scissors"
-    } else {
-        return "error"
-    }
-}
-
-function playerSelection() {
-    return prompt("Please input either Rock, Paper or Scissors.", "Rock").toLowerCase()
-}
-
-function roundOfRPS(cSelection, pSelection) {
-
-    if (cSelection === "rock" && pSelection === "rock" || cSelection === "paper" && pSelection === "paper" || cSelection === "scissors" && pSelection === "scissors") {
-        console.log("Aww a draw :(")
-        return 0;
-    } else if (cSelection === "rock" && pSelection === "scissors") {
-        console.log("Darn you lost, Rock beats Scissors.")
-        return 1;
-    } else if (cSelection === "paper" && pSelection === "rock") {
-        console.log("Darn you lost, Paper beats Rock.")
-        return 1;
-    } else if (cSelection === "scissors" && pSelection === "paper") {
-        console.log("Darn you lost, Scissors beats Paper.")
-        return 1;
-    } else if (cSelection === "scissors" && pSelection === "rock") {
-        console.log("Wow you won! Rock beats Scissors.")
-        return 2;
-    } else if (cSelection === "paper" && pSelection === "scissors") {
-        console.log("Wow you won! Scissors beats Paper.")
-        return 2;
-    } else if (cSelection === "rock" && pSelection === "paper") {
-        console.log("Wow you won! Paper beats Rock.")
-        return 2;
-    } else {
-        console.log("You didn't choose a valid option.")
-        return 3;
-    }
-}
-
-function game() {
-    let games = 0
-
-
-    for (; games < 5; games++) {
-        let round = roundOfRPS(cSelection, pSelection);
-        if (round == 0) {
-            games = games - 1
-        } else if (round == 1) {
-            compScore = compScore + 1
-        } else if (round == 2) {
-            playScore = playScore + 1
+        if (cChoice === 1) {
+            return "rock"
+        } else if (cChoice === 2) {
+            return "paper"
+        } else if (cChoice === 3) {
+            return "scissors"
         } else {
-            games = games - 1
+            return "error"
+       }
+    }
+
+    function roundOfRPS(cSelection, pSelection) {
+
+        if (cSelection === "rock" && pSelection === "rock" || cSelection === "paper" && pSelection === "paper" || cSelection === "scissors" && pSelection === "scissors") {
+            console.log("Aww a draw :(")
+            
+        } else if (cSelection === "rock" && pSelection === "scissors") {
+            console.log("Darn you lost, Rock beats Scissors.")
+            compScore = compScore + 1;
+            document.querySelector("#cResults").textContent = `Your opponents score is ${compScore}`
+            document.querySelector("#immediateResult").textContent = `Your opponent won this round!`
+            
+        } else if (cSelection === "paper" && pSelection === "rock") {
+            console.log("Darn you lost, Paper beats Rock.")
+            compScore = compScore + 1;
+            document.querySelector("#cResults").textContent = `Your opponents score is ${compScore}`
+            document.querySelector("#immediateResult").textContent = `Your opponent won this round!`
+            
+        } else if (cSelection === "scissors" && pSelection === "paper") {
+            console.log("Darn you lost, Scissors beats Paper.")
+            compScore = compScore + 1;
+            document.querySelector("#cResults").textContent = `Your opponents score is ${compScore}`
+            document.querySelector("#immediateResult").textContent = `Your opponent won this round!`
+            
+        } else if (cSelection === "scissors" && pSelection === "rock") {
+            console.log("Wow you won! Rock beats Scissors.")
+            playScore = playScore + 1;
+            document.querySelector("#pResults").textContent = `Your score is ${playScore}`
+            document.querySelector("#immediateResult").textContent = `You won this round!`
+            
+        } else if (cSelection === "paper" && pSelection === "scissors") {
+            console.log("Wow you won! Scissors beats Paper.")
+            playScore = playScore + 1;
+            document.querySelector("#pResults").textContent = `Your score is ${playScore}`
+            document.querySelector("#immediateResult").textContent = `You won this round!`
+            
+        } else if (cSelection === "rock" && pSelection === "paper") {
+            console.log("Wow you won! Paper beats Rock.")
+            playScore = playScore + 1;
+            document.querySelector("#pResults").textContent = `Your score is ${playScore}`
+            document.querySelector("#immediateResult").textContent = `You won this round!`
+
+        } else {
+            console.log("ERROR")
         }
 
-        pSelection = playerSelection();
-        cSelection = computerSelection();
+        if(playScore == 5 && document.querySelector("#matchResults").textContent !== `You lose!`) {
+            document.querySelector("#matchResults").textContent = `You win!`
+        } else if (compScore == 5 && document.querySelector("#matchResults").textContent !== `You win!`) {
+            document.querySelector("#matchResults").textContent = `You lose!`
+        } else {
 
+        }
     }
 
-    if (compScore < playScore) {
-        return `you win! You got ${playScore}, and the Computer got ${compScore}.`
-    } else if (compScore == playScore) {
-        console.log("it was a draw play again")
+    document.querySelector("#pResults").textContent = `Your score is ${playScore}`;
+    document.querySelector("#cResults").textContent = `Your opponents score is ${compScore}`;
+
+
+
+    rockChoice.addEventListener("click", function() {
+        roundOfRPS(cSelection, "rock")
+        cSelection = computerSelection()
+    });
+    paperChoice.addEventListener('click', function() {
+        roundOfRPS(cSelection, "paper")
+        cSelection = computerSelection()
+    });
+    scissorsChoice.addEventListener('click', function() {
+        roundOfRPS(cSelection, "scissors")
+        cSelection = computerSelection()
+    });
+
+    if(playScore == 5) {
+        document.querySelector("#matchResults").textContent = `You win!`
+    } else if (compScore == 5) {
+        document.querySelector("#matchResults").textContent = `You lose!`
     } else {
-        return `you lost! You got ${playScore}, and the Computer got ${compScore}.`
-    }
 
-}
+    };
 
-console.log(game())
 
 </script>
+
+
